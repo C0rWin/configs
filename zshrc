@@ -2,10 +2,6 @@
 #
 export ZSH=$HOME/.oh-my-zsh
 
-export HOMEBREW_GITHUB_API_TOKEN=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
-#export HOMEBREW_GITHUB_API_TOKEN=86ee4b567d5b4a6f2b671b15992eee1b04ee1ede
-export GITHUB_TOKEN=023a878f0806610a29c14ef57bc587fa7722629c
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
