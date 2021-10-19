@@ -1,0 +1,65 @@
+function docker_push_private() {
+    selected=$(docker images | fzf )
+    name=$(echo $selected | awk '{ print $1; }')
+    hash_tag=$(echo $selected | awk '{ print $3; }')
+    image_name=9.37.249.215/$(whoami)/$name
+    docker tag $hash_tag $image_name
+    docker push $image_name
+}
+
+function add_ssh_host() {
+    printf "\n" >> ~/.ssh/config
+    printf "Host\t%s\n" $1 >> ~/.ssh/config
+    printf "\tHostname %s\n" $2 >> ~/.ssh/config
+    printf "\tUser %s\n" $3 >> ~/.ssh/config
+    printf "\n" >> ~/.ssh/config
+}
+
+function dck_env() {
+    eval $(docker-machine env $1)
+}
+
+function dck_purge() {
+    for i in $(docker ps -qa); do docker rm $i; done;
+}
+
+function ppgrep() {
+    if [[ $1 == "" ]]; then
+        PERCOL=percol
+    else
+        PERCOL="percol --query $1"
+    fi
+    ps aux | eval $PERCOL | awk '{ print $2 }'
+}
+
+function ppkill() {
+    if [[ $1 =~ "^-" ]]; then
+        QUERY=""            # options only
+    else
+        QUERY=$1            # with a query
+        [[ $# > 0 ]] && shift
+    fi
+    ppgrep $QUERY | xargs kill $*
+}
+
+function exists { which $1 &> /dev/null }
+
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac |percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
+
+eval $(thefuck --alias)
+
+function kfrp() { ps -ef | grep frappe | grep -v grep | awk '{ print $2; }' | xargs kill -9 }
+
+alias tf="tail -f"
+alias vg=vagrant

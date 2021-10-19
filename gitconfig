@@ -1,0 +1,16 @@
+[alias]
+	ci = commit
+	st = status
+	br = branch
+	ll = log --oneline
+	last = log -1 HEAD --stat
+	unstage = reset HEAD --
+	co = checkout
+[help]
+	autocorrect = 20
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[init]
+	defaultBranch = main
