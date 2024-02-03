@@ -1,4 +1,5 @@
 " vim-bootstrap 
+"
 
 "*****************************************************************************
 "" Vim-PLug core
@@ -21,113 +22,111 @@ if !filereadable(vimplug_exists)
   autocmd VimEnter * PlugInstall
 endif
 
-" Required:
-call plug#begin(expand('~/.vim/plugged'))
-
-let g:polyglot_disabled = ['python']
-
-"*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
-Plug 'scrooloose/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/grep.vim'
-Plug 'vim-scripts/CSApprox'
-Plug 'Raimondi/delimitMate'
-Plug 'majutsushi/tagbar'
-Plug 'w0rp/ale'
-Plug 'Yggdroot/indentLine'
-Plug 'avelino/vim-bootstrap-updater'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
-Plug 'bagrat/vim-buffet'
-Plug 'rudism/vim-wombat'
-Plug 'jlanzarotta/bufexplorer'
-Plug 'miyakogi/conoline.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'cseelus/vim-colors-lucid'
-Plug 'sainnhe/sonokai'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
-
-if has('nvim')
-    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/denite.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
-Plug 'Shougo/vimproc.vim', {'do': g:make}
 
-"" Vim-Session
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+" Required:
+call plug#begin(expand('~/.vim/plugged'))
+"*****************************************************************************
+"" Plug install packages
+"*****************************************************************************
 
-"" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"*****************************************************************************
+" Themes and colorschemes
+"*****************************************************************************
+Plug 'vim-scripts/CSApprox'
 
-"" Color
+Plug 'ayu-theme/ayu-vim'
+Plug 'rudism/vim-wombat'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'cseelus/vim-colors-lucid'
+Plug 'sainnhe/sonokai'
+Plug 'arcticicestudio/nord-vim'
 Plug 'tomasr/molokai'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'morhetz/gruvbox'
+
+Plug 'miyakogi/conoline.vim'
+"*****************************************************************************
+" Tex and LaTex management and plugins
+"*****************************************************************************
+Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 "*****************************************************************************
-"" Custom bundles
+" File system and navigation
 "*****************************************************************************
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'majutsushi/tagbar'
 
-" c
-Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plug 'ludwig/split-manpage.vim'
-
-
-" go
-"" Go Lang Bundle
+"*****************************************************************************
+" Programming languages, code formatting, linting and completion
+"*****************************************************************************
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+" Plug 'sheerun/vim-polyglot'
+Plug 'w0rp/ale'
 
+Plug 'rust-lang/rust.vim'
+Plug 'pangloss/vim-javascript'    " JavaScript support
+Plug 'leafgarland/typescript-vim' " TypeScript syntax
+Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+Plug 'jparise/vim-graphql'        " GraphQL syntax
 
-" python
-"" Python Bundle
+Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
-
-" rust
-" Vim racer
 Plug 'racer-rust/vim-racer'
 
-" Rust.vim
-Plug 'rust-lang/rust.vim'
+Plug 'ludwig/split-manpage.vim'
+"*****************************************************************************
+" Editing and text manipulation, completion and snippets, AI assisted coding
+"*****************************************************************************
+Plug 'tpope/vim-commentary'
+Plug 'github/copilot'
+Plug 'Raimondi/delimitMate'
 
-
-Plug 'vim-latex/vim-latex'
-
-autocmd Filetype tex setl updatetime=1
-let g:livepreview_previewer = 'open -a Preview'
+Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 
 "*****************************************************************************
+" Code and files navigation
+"*****************************************************************************
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'bagrat/vim-buffet'
+
+Plug 'easymotion/vim-easymotion'
+"*****************************************************************************
+" Git and version control
+"*****************************************************************************
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
+
+"*****************************************************************************
+" Search and replace
+"*****************************************************************************
+Plug 'vim-scripts/grep.vim'
+Plug 'mileszs/ack.vim'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+" Plug 'avelino/vim-bootstrap-updater'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'Shougo/vimproc.vim', {'do': g:make}
+
 "*****************************************************************************
 
 "" Include user's extra bundle
@@ -141,14 +140,51 @@ call plug#end()
 filetype plugin indent on
 
 
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'open -a Preview'
+
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
+
+set nocompatible
+filetype off
+filetype plugin indent on
+
 "" Encoding
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
+
 set ttyfast
+set noerrorbells
+set noswapfile
+set nobackup
+set splitright
+set splitbelow
+set autowrite
+
+set completeopt=menu,menuone
+set nocursorcolumn
+set nocursorline
+set updatetime=300
+set pumheight=10
+set conceallevel=2
+
+set shortmess+=c
+set belloff+=ctrlg
+
+set lazyredraw
+
+set clipboard^=unnamed
+set clipboard^=unnamedplus
+
+set maxmempattern=50000
+set viminfo='1000
+
+" set laststatus=2
+" set autoread
+" set autoindent
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -195,8 +231,9 @@ set number
 let no_buffers_menu=1
 "silent! colorscheme molokai
 "colorscheme wombat
-colorscheme afterglow
+"colorscheme afterglow
 "colorscheme torte
+colorscheme onehalflight 
 
 set mousemodel=popup
 set t_Co=256
@@ -294,6 +331,10 @@ let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -369,6 +410,11 @@ noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
+
+" Fugitive Conflict Resolution
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
+
 
 " session management
 nnoremap <leader>so :OpenSession<Space>
@@ -489,6 +535,21 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_gopls_comleted_unimported=1
+
+let g:go_autodetect_gopath=1
+let g:go_gopls_gofumpt=1
+let g:go_gopls_enabled = 1
+let g:go_imports_autosave = 1
+let g:go_imports_mode = 'gopls'
+
+let g:go_doc_popup_window = 1
+let g:go_doc_balloon = 1
+let g:go_diagnostic_level = 2
+
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
@@ -525,7 +586,6 @@ augroup completion_preview_close
 augroup END
 
 augroup go
-
   au!
   au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
   au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -546,7 +606,7 @@ augroup go
   au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
   au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
-
+  au FileType go inoremap <silent><expr> . '.' . coc#refresh()
 augroup END
 
 " ale
@@ -645,9 +705,9 @@ endif
 
 
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
@@ -796,3 +856,42 @@ let g:WebDevIconsOS = 'Darwin'
 
 nnoremap <Space> :noh<CR>
 au BufRead,BufNewFile *.daml set filetype=daml
+
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_MultipleCompileFormats='pdf,bibtex,pdf'
+let g:vimtex_compiler_latexmk = { 
+        \ 'executable' : 'latexmk',
+        \ 'options' : [ 
+                \   '-xelatex',
+                \   '-file-line-error',
+                \   '-synctex=1',
+                \   '-interaction=nonstopmode',
+                \ ],
+        \}
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+""
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
+"" remap for complete to use tab and <cr>
+"inoremap <silent><expr> <TAB>
+"            \ coc#pum#visible() ? coc#pum#next(1):
+"            \ <SID>check_back_space() ? \<Tab> :
+"            \ coc#refresh()
+"inoremap <expr><S-TAB> coc#pum#visible() ?coc#pum#prev(1) : \<C-h>
+" inoremap <silent><expr><c-space> coc#refresh()
+
+hi CocSearch ctermfg=12 guifg=#18A3FF
+hi CocMenuSel ctermbg=109 guibg=#13354A

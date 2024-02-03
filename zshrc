@@ -59,13 +59,15 @@ HELPDIR=/usr/local/share/zsh/help
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf direnv cp golang gulp history k git brew mvn gradle fabric tmux gem extract git-extras lein mercurial npm python rake sbt svn scala ssh-agent tmux vagrant docker docker-compose docker-machine)
+plugins=(fzf direnv cp golang gulp history git brew mvn gradle fabric tmux gem extract git-extras lein mercurial npm python rake sbt svn scala ssh-agent tmux vagrant docker docker-compose docker-machine ansible npm nvm)
 
 # User configuration
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
+#export GOROOT=$(go1.18.8 env GOROOT)
+export GOROOT=/opt/homebrew/Cellar/go/1.21.6/libexec
+#export GOROOT=/opt/homebrew/Cellar/go@1.18/1.18.8/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export JAVA_HOME=$(/usr/libexec/java_home -v 16)
@@ -130,3 +132,23 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 fpath=(~/.daml/zsh $fpath)
 
+export PKCS11_LIB="/opt/homebrew/Cellar/softhsm/2.6.1/lib/softhsm/libsofthsm2.so"
+export PKCS11_PIN=98765432
+export PKCS11_LABEL="ForFabric"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/Users/c0rwin/yandex-cloud/path.bash.inc' ]; then source '/Users/c0rwin/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/Users/c0rwin/yandex-cloud/completion.zsh.inc' ]; then source '/Users/c0rwin/yandex-cloud/completion.zsh.inc'; fi
+
+zstyle :omz:plugins:ssh-agent identities id_rsa newity newitycore
+alias python=/usr/bin/python3
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
